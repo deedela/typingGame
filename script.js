@@ -10,5 +10,20 @@ function startGame() {
     quote.innerHTML = `<span>${targetWord}</span>`;
 }
 
-start.addEventListener('click',startGame);
+function checkInput() {
+    console.log("Checking", input.value);
+    const currentWord = targetWord;
+    const typedValue = input.value.trim(); // JS string method '  hello world  ' = 'hello world'
+  if (currentWord !== typedValue) {
+    input.className = currentWord.startsWith(typedValue) ? '' : 'error';
+    // if (currentWord.startsWith(typedValue) === true) {
+    //   input.className = '';
+    // } else {
+    //   input.className = 'error';
+    // }
+    return;
+  }
+}
 
+start.addEventListener('click', startGame);
+start.addEventListener('input', checkInput);
