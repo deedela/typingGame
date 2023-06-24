@@ -2,28 +2,35 @@ const quote = document.getElementById('quote');
 const input = document.getElementById ('typed-value');
 const start = document.getElementById('start');
 
-let targetWord;
+let quoteText;
+let wordQueue;
+let highLightPosition;
 
 function startGame() {
-    console.log('Game started!');
-    targetWord = 'typeme';
-    quote.innerHTML = `<span>${targetWord}</span>`;
-}
+    quoteText = 'type me';
+    wordQueue = quoteText.split(' ');
+    quote.innerHTML = wordQueue.map(word => (`<span>${word}</span>`)).join('');    
+    
+    highLightPosition = 0;
+    // quote.childNodes = ['<span>type</span>', '<span>me</span>']
+    quote.childNodes[highLightPosition].className = 'highlight';
+  }
 
 function checkInput() {
-    console.log("Checking", input.value);
-    const currentWord = targetWord;
-    const typedValue = input.value.trim(); // JS string method '  hello world  ' = 'hello world'
-  if (currentWord !== typedValue) {
-    input.className = currentWord.startsWith(typedValue) ? '' : 'error';
-    // if (currentWord.startsWith(typedValue) === true) {
-    //   input.className = '';
-    // } else {
-    //   input.className = 'error';
-    // }
-    return;
+    console.log('Checking', input.value);
+    const currentWord = wordQueue [0]; // the first word is the word queue array
+    const typedValue = input.value.trim(); //JS string method '  hello world  ' = 'hello world'
+    
+    if (currentWord !== typedValue) { //false when the word typed is correct
+      input.className = currentWord.startsWith(typedValue) ? '' : 'error';
+      // if (currentWord.startsWith(typedValue) === true) {
+      //   input.className = '';
+      // } else {
+      //   input.className = 'error';
+      // }
+      return;
+    }
   }
-}
-
-start.addEventListener('click', startGame);
-start.addEventListener('input', checkInput);
+  
+  start.addEventListener('click', startGame);
+  input.addEventListener('input', checkInput);
