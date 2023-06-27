@@ -20,7 +20,7 @@ function checkInput() {
     console.log('Checking', input.value);
     const currentWord = wordQueue [0]; // the first word is the word queue array
     const typedValue = input.value.trim(); //JS string method '  hello world  ' = 'hello world'
-    
+
     if (currentWord !== typedValue) { //false when the word typed is correct
       input.className = currentWord.startsWith(typedValue) ? '' : 'error';
       // if (currentWord.startsWith(typedValue) === true) {
@@ -30,6 +30,10 @@ function checkInput() {
       // }
       return;
     }
+
+    // this is what happens when there's no error 
+    wordQueue.shift(); //remove the first word from the wordQueue array, because we already typed it!
+    input.value = ''; //clear input field
   }
   
   start.addEventListener('click', startGame);
